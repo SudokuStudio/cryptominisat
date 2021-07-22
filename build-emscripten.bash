@@ -23,9 +23,8 @@ source ./emsdk_env.sh
 
 popd
 
-emcmake cmake -DENABLE_PYTHON_INTERFACE=OFF -DNOM4RI=ON \
-    -DENABLE_TESTING=OFF -DNOZLIB=ON -DONLY_SIMPLE=ON \
-    -DEMSCIPTEN=ON \
+emcmake cmake -DEMSCIPTEN=ON -DNOM4RI=ON \
+    -DENABLE_TESTING=OFF -DEXTFEAT=OFF -DSTATS=OFF \
     ..
 
 emmake make
