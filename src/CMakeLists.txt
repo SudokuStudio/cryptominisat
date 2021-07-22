@@ -328,13 +328,13 @@ if (EMSCRIPTEN)
     )
 
     set_target_properties(cryptominisat5_simple-bin
-    PROPERTIES
-    OUTPUT_NAME cryptominisat5_simple
-    LINK_FLAGS "-s WASM=1 -s ALLOW_MEMORY_GROWTH=1 -s EXTRA_EXPORTED_RUNTIME_METHODS='[\"ccall\", \"cwrap\"]'  -s LINKABLE=1 -s EXPORT_ALL=1"
+        PROPERTIES
+        OUTPUT_NAME cryptominisat5_simple
+        LINK_FLAGS "-s EXPORT_ES6=1 -s WASM=1 -s ALLOW_MEMORY_GROWTH=1 -s EXTRA_EXPORTED_RUNTIME_METHODS='[\"ccall\", \"cwrap\"]' -s LINKABLE=1 -s EXPORT_ALL=1"
     )
 
     SET_SOURCE_FILES_PROPERTIES(main_emscripten.cpp
-        PROPERTIES COMPILE_FLAGS "-s WASM=1 -s ALLOW_MEMORY_GROWTH=1 -s EXTRA_EXPORTED_RUNTIME_METHODS='[\"ccall\", \"cwrap\"]'  -s LINKABLE=1 -s EXPORT_ALL=1"
+        PROPERTIES COMPILE_FLAGS "-s WASM=1 -s ALLOW_MEMORY_GROWTH=1 -s EXTRA_EXPORTED_RUNTIME_METHODS='[\"ccall\", \"cwrap\"]' -s LINKABLE=1 -s EXPORT_ALL=1"
     )
 else()
     add_executable(cryptominisat5_simple-bin
