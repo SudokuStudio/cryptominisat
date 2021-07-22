@@ -25,6 +25,7 @@ THE SOFTWARE.
 #include <stdlib.h>
 #include <string.h>
 #include "constants.h"
+#include <emscripten/bind.h>
 
 using std::cout;
 using std::endl;
@@ -37,6 +38,7 @@ using std::endl;
 #include "streambuffer.h"
 
 using namespace CMSat;
+using namespace emscripten;
 
 SATSolver* solver = NULL;
 DLL_PUBLIC void printVersionInfo()
@@ -45,7 +47,7 @@ DLL_PUBLIC void printVersionInfo()
     cout << "c CryptoMiniSat SHA revision " << solver->get_version_sha1() << endl;
 }
 
-DLL_PUBLIC int start_solve(const char* input)
+DLL_PUBLIC int start_solve(std::string input)
 {
     SolverConf conf;
     conf.max_confl = 500;
@@ -61,7 +63,7 @@ DLL_PUBLIC int start_solve(const char* input)
     }
 
     DimacsParser<StreamBuffer<const char*, CH>, SATSolver> parser(solver, NULL, conf.verbosity);
-    if (!parser.parse_DIMACS(input, false)) {
+    if (!parser.parse_DIMACS(input.c_str(), false)) {
         exit(-1);
     }
 
@@ -113,19 +115,8 @@ DLL_PUBLIC int get_num_conflicts()
     return num;
 }
 
-
-extern "C" {
-
-DLL_PUBLIC int cstart_solve(const char *input) {
-  return start_solve(input);
-}
-
-DLL_PUBLIC int ccontinue_solve() {
-  return continue_solve();
-}
-
-DLL_PUBLIC int cget_num_conflicts() {
-  return get_num_conflicts();
-}
-
+EMSCRIPTEN_BINDINGS(cryptominisat) {
+    function("start_solve", &start_solve);
+    function("continue_solve", &continue_solve);
+    function("get_num_conflicts", &get_num_conflicts);
 }
