@@ -1,5 +1,9 @@
 set -ex
 
+mkdir build || true
+
+pushd build
+
 # Get the emsdk repo
 if [ ! -d "emsdk" ]; then
     git clone https://github.com/emscripten-core/emsdk.git
@@ -18,10 +22,6 @@ pushd emsdk
 source ./emsdk_env.sh
 
 popd
-
-mkdir build || true
-
-pushd build
 
 emcmake cmake -DENABLE_PYTHON_INTERFACE=OFF -DNOM4RI=ON \
     -DENABLE_TESTING=OFF -DNOZLIB=ON -DONLY_SIMPLE=ON \
