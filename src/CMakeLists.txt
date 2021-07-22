@@ -331,16 +331,16 @@ if (EMSCRIPTEN)
     PROPERTIES
     OUTPUT_NAME cryptominisat5_simple
     LINK_FLAGS "\
-        -s WASM=1 -s ALLOW_MEMORY_GROWTH=1 \
+        -s WASM=1 -s EXPORT_ES6=1 -s ALLOW_MEMORY_GROWTH=1 \
         -s EXTRA_EXPORTED_RUNTIME_METHODS='[\"ccall\", \"cwrap\"]' \
-        -s EXPORTED_FUNCTIONS=_cstart_solve,_ccontinue_solve,_cget_num_conflicts,_cmsat_new,_cmsat_free -Oz"
+        -s EXPORTED_FUNCTIONS=_cstart_solve,_ccontinue_solve,_cget_num_conflicts,_cmsat_new,_cmsat_free,_cmsat_nvars,_cmsat_add_clause,_cmsat_add_xor_clause,_cmsat_new_vars,_cmsat_solve,_cmsat_solve_with_assumptions,_cmsat_get_model,_cmsat_get_conflict,_cmsat_print_stats,_cmsat_set_num_threads,_cmsat_set_verbosity,_cmsat_set_default_polarity,_cmsat_set_polarity_auto,_cmsat_set_no_simplify,_cmsat_set_no_simplify_at_startup,_cmsat_set_no_equivalent_lit_replacement,_cmsat_set_no_bva,_cmsat_set_no_bve,_cmsat_set_up_for_scalmc,_cmsat_set_yes_comphandler,_cmsat_simplify,_cmsat_set_max_time"
     )
 
     SET_SOURCE_FILES_PROPERTIES(main_emscripten.cpp
         PROPERTIES COMPILE_FLAGS "\
-        -s WASM=1 -s ALLOW_MEMORY_GROWTH=1 \
+        -s WASM=1 -s EXPORT_ES6=1 -s ALLOW_MEMORY_GROWTH=1 \
         -s EXTRA_EXPORTED_RUNTIME_METHODS='[\"ccall\", \"cwrap\"]' \
-        -s EXPORTED_FUNCTIONS=_cstart_solve,_ccontinue_solve,_cget_num_conflicts -Oz"
+        -s EXPORTED_FUNCTIONS=_cstart_solve,_ccontinue_solve,_cget_num_conflicts"
     )
 else()
     add_executable(cryptominisat5_simple-bin
